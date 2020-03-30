@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<section id="portfolio"  class="section-bg">
+<div class="row">
+  <div class="col-8">
+    <h1>Appartements disponibles</h1>
+  </div>
+
+ {% if app.user.roles[0] == "ROLE_ADMIN" %}
+  <div class="col-3">
+    <a type="button" href="{{ path('addAppart') }}" class="btn btn-primary btn-lg btn-block">Ajouter un appartement</a>
+  </div>  
+{% endif %}
+</div>
+
+<hr>
+<div class="row portfolio-container">
+
+{% for appartement in appartements %}
+
+{% set i = ( i | default(0) ) + 1 %}
+
+{% if i == 24 %}
+{% set i = 1 %}
+{% endif %}
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-aos="fade-up" data-aos-delay="0">
+        <div class="portfolio-wrap">
+          <figure>
+            <img src="{{ asset( '' ~ routes[i-1] ~ '') }}" class="little-img-fluid" alt="Responsive image">   
+            <a href="{{ path('show_one', {'id' : appartement.id }) }}" class="link-details" title="Details"><i class="fas fa-arrow-right"></i></a>
+          </figure>
+          <div class="portfolio-info">
+            <h4 class="text-left"> Adresse : {{ appartement.rue }}</h4>
+            <p class="text-left">Prix de la location : {{ appartement.prixLocation }} €/mois</p>
+
+          {% if app.user.roles[0] == "ROLE_ADMIN" %}
+
+              <p class="text-left mt-1" style="float:right">
+                <a href="{{ path("delAppart", {"id" : appartement.id }) }}" class="btn btn-primary">supprimer</a>
+                <a href="{{ path("editAppart",{"id" : appartement.id }) }}" class="btn btn-primary">modifier</a>
+              </p>
+
+          {% endif %}
+
+          </div>
+        </div>
+      </div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+<div>
+  <ul class="navigation text-center">
+      {{ knp_pagination_render(appartements) }}
+  </ul>
+</div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Type d'appartement</th>
+      <th scope="col">Prix demandé</th>
+      <th scope="col">Arrondissements demandé</th>
+      <th scope="col">Client demandeur</th>
+      <th scope="col" class="text-center">Action</th>
+      
+    </tr>
+  </thead>
+
+
+  <tbody>
+
+    {% for demande in demandes %}
+    <tr>
+      <td>{{ demande.typeAppart }}</td>
+      <td>{{ demande.prixLocation }}</td>
+      <td>  
+        {% for arrondissement in demande.arrondissements %}
+          {{ arrondissement.arrondissementDemande }}
+        {% endfor %}
+
+      </td>
+      <td>{{ demande.client.prenom }} {{ demande.client.nom }} </td>
+
+       <td class="text-center">
+         <a href="{{ path("delDemande", {"id": demande.id}) }}" class="btn btn-primary">supprimer</a> 
+         <a href="{{ path("editDemande",{"id": demande.id}) }}" class="btn btn-primary">modifier</a></td>
+
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table> 
+
+{% endblock %}

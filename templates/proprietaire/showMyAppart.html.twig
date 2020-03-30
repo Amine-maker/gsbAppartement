@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<section id="portfolio"  class="section-bg">
+<h1>Mes appartements</h1>
+<hr>
+<div class="row portfolio-container">
+
+
+
+{% for appartement in appartements %}
+
+{% set i = ( i | default(0) ) + 1 %}
+
+{% if i == 24 %}
+  {% set i = 1 %}
+{% endif %}
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-aos="fade-up" data-aos-delay="100">
+        <div class="portfolio-wrap">
+          <figure>
+            <img src="{{ asset( '' ~ routes[i-1] ~ '') }}" class="little-img-fluid" alt="Responsive image">   
+            <a href="{{ path('show_one', {'id' : appartement.id }) }}" class="link-details" title="Details"><i class="fas fa-arrow-right"></i></a>
+          </figure>
+          <div class="portfolio-info">
+            <h4 class="text-left"> Adresse : {{ appartement.rue }} </h4>
+            <p class="text-left">Prix de la location : {{ appartement.prixLocation }} €/mois</p>
+
+          </div>
+        </div>
+      </div>
+
+
+{% endfor %}
+
+
+</div>
+</section>
+{% endblock %}

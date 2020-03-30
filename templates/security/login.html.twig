@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-3 mb-5 rounded mt-5">
+            <article class="card-body">
+            <a href="{{ path('inscription') }}" class="float-right btn btn-outline-primary">S'inscrire</a>
+            <h4 class="card-title mb-4 mt-1">Se connecter</h4>
+                <form action="{{ path('connexion') }}" method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}     
+                <div class="form-group">
+                    <label>Votre Email</label>
+                    <input type="text" required name="_username" placeholder="email" class="form-control">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    
+                    <label>Votre Mot de passe</label>
+                <input type="password" required name="_password" placeholder="password" class="form-control">
+                </div> <!-- form-group// --> 
+            
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Connexion </button>
+                </div> <!-- form-group// -->                                                           
+            </form>
+            </article>
+        </div> 
+    </div>
+</div>
+
+
+
+ {% endblock %} 
+
+
+ 

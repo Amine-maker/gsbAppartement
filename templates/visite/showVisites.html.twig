@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Client visiteur</th>
+      <th scope="col">Adresse de l'appartement</th>
+      <th scope="col">Date de la visite</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+
+    {% for visite in visites %}
+    <tr>
+      <th scope="row">{{ visite.nom }} {{ visite.prenom }}</th>
+      <td>{{ visite.rue }}</td>
+      <td>{{ visite.date_visite }}</td>
+       <td> <a href='{{ path("validerDemande", {'id': visite.client_id, 'app' : visite.appartement_id}) }}' class="btn btn-primary">Valider cette demande</a> </td>
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table> 
+
+{% endblock %}

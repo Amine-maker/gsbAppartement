@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="row">
+    <h1>La demande a été accepeter,</h1> 
+    <p class="lead">Le client
+     {{ utilisateur.nom }} {{ utilisateur.prenom }}
+      se verra remplir ses informations bancaire à sa prochaine connexion
+     </p>
+</div>
+
+
+<script>
+
+$.confirm({
+    title: 'Demande accepter',
+    content: 'Le client {{ utilisateur.nom }} {{ utilisateur.prenom }}' +
+    'se verra remplir ses informations bancaire à sa prochaine connexion',
+    type: 'green',
+    typeAnimated: true,
+    buttons: {
+        tryAgain: {
+            text: 'valider',
+            btnClass: 'btn-success',
+            action: function(){
+                 $(location).attr('href','{{ path("voirDemande") }}');
+            }
+        }
+    }
+});
+</script>
+
+
+{% endblock %}

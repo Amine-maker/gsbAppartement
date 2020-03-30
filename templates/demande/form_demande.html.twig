@@ -1,0 +1,53 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% form_theme formD 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+
+<style>
+
+body{
+    background-image: url('{{ asset('image/bg-demande.jpg') }}');
+    background-repeat: no-repeat;
+    }
+.navbar-default.navbar-trans,
+.navbar-default.navbar-reduce
+{
+    background-color : white;
+}
+</style>
+
+<div class="d-flex justify-content-left ">
+    <div class="col-md-6 shadow p-3 mb-5 bg-white rounded mt-5">
+    <h1 class="text-center m-4">Rechercher un appartement</h1>
+    {{ form_start(formD) }}
+
+    {{ form_row(formD.typeAppart)}}
+    {{ form_row(formD.prixLocation) }}
+    {{ form_row(formD.arrondissements) }}
+
+
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block">
+    
+        {% if editMode %}
+        
+            modifier
+
+            {% else %}
+
+                demander
+        
+        {% endif %}
+    
+    </button>
+
+    {{ form_end(formD) }}
+
+    </div>
+</div>
+
+{% endblock %}

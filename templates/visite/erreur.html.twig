@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<script>
+
+
+
+$.confirm({
+    title: 'Erreur !',
+    content: 'Vous avez déjà visité cette appartement dernièrement',
+    type: 'red',
+    typeAnimated: true,
+    buttons: {
+        tryAgain: {
+            text: 'valider',
+            btnClass: 'btn-red',
+            action: function(){
+                 $(location).attr('href','{{ path("demandeApp") }}');
+            }
+        }
+    }
+});
+
+
+
+</script>
+
+{% endblock %}

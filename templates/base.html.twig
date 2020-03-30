@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    {# <script id="cid0020000245539819289" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 212px;height: 254px;">{"handle":"ooiuyyfgf","arch":"js","styles":{"a":"383838","b":100,"c":"FFFFFF","d":"FFFFFF","k":"383838","l":"383838","m":"383838","n":"FFFFFF","p":"10.44","q":"383838","r":100,"usricon":0,"pos":"br","cv":1,"cvbg":"404040","cvw":200,"cvh":30,"cnrs":"0.35","ticker":1,"fwtickm":1}}</script> #}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css"> 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg">
+      <a class="navbar-brand text-brand text-primary" href="{{ path('accueil') }}">GsbAgence</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-align-justify fa-2x"></i>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav">
+          
+    {% if not app.user %} {# que s'il  est pas connecter #}
+           
+             <li class="nav-item">
+                <a class="nav-link" href="{{ path('connexion') }}">Connexion</a>
+            </li>
+
+    {% else %}   
+
+          {% if app.user.roles[0] == "ROLE_CLIENT" %}{# pour pouvoir afficher selon le role
+                                                      , tu peux faire demander si t'es un client #}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('demandeApp') }}">Demander un appartement</a>
+            </li>
+          
+          
+        
+      
+          {% elseif app.user.roles[0] == "ROLE_ADMIN" %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('showAppart') }}">Appartements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('voirDemande') }}">demandes</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{{ path('showVisites') }}">valider une visites</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('showUsers') }}">Utilisateurs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('cotisationByProprietaire') }}">cotisations par proprietaire</a>
+            </li>
+
+            {% elseif app.user.roles[0] == "ROLE_PROPRIETAIRE" %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('myApparts') }}">Mes appartements</a> 
+            </li>
+
+             {% elseif app.user.roles[0] == "ROLE_LOCATAIRE" and app.user.getClassName == "Client" %}
+
+            <li class="nav-item">
+              <a class="nav-link disabled" disabled href="{{ path('myAppart') }}">Mon appartement</a>
+            </li>
+
+            {% elseif app.user.roles[0] == "ROLE_LOCATAIRE" %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('myAppart') }}">Mon appartement</a>
+            </li>
+
+            {% endif %}
+            
+           </ul>
+      
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('deconnexion') }}"><i class="fas fa-sign-out-alt"></i>Deconnexion</a>
+            </li>
+          </ul>
+          
+  {% endif %}
+
+       </div>
+  </nav>
+
+
+  {% if app.user %}
+
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container text-center text-md-left" data-aos="fade-up">
+      <h1>GsbAgence</h1>
+      <h2></h2>
+
+          {% if app.user.roles[0] == "ROLE_CLIENT" %}{# pour pouvoir afficher selon le role
+                                                        , tu peux faire demander si t'es un client par exemple #}
+              <a class="btn btn-primary" href="{{ path('demandeApp') }}">Demander un appartement</a>
+            
+          {% elseif app.user.roles[0] == "ROLE_ADMIN" %}
+
+              <a class="btn btn-primary" href="{{ path('showAppart') }}">Appartements</a>
+              <a class="btn btn-primary" href="{{ path('voirDemande') }}">demandes</a>
+              <a class="btn btn-primary" href="{{ path('showVisites') }}">valider une visites</a>
+              <a class="btn btn-primary" href="{{ path('showUsers') }}">Utilisateurs</a>
+              <a class="btn btn-primary" href="{{ path('cotisationByProprietaire') }}">cotisations par proprietaire</a>
+            
+            {% elseif app.user.roles[0] == "ROLE_PROPRIETAIRE" %}
+
+              <a class="btn btn-primary" href="{{ path('myApparts') }}">Mes appartements</a>
+        
+            {% elseif app.user.roles[0] == "ROLE_LOCATAIRE" and app.user.getClassName == "Client" %}
+
+              <a class="btn btn-primary disabled" disabled href="{{ path('myAppart') }}">Mon appartement</a>
+
+              {% elseif app.user.roles[0] == "ROLE_LOCATAIRE" %}
+
+              <a class="btn btn-primary" href="{{ path('myAppart') }}">Mon appartement</a>
+            
+            
+            {% endif %}
+  </div>
+</section>
+
+{% endif %}
+
+<div class="container">
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>    
+          AOS.init (); 
+
+          AOS.init ({duration: 1000, once:true}); 
+          
+        </script>
+    </body>
+
+

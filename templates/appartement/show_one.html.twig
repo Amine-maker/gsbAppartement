@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-sm-12">
+        <figure>
+          <div id="container" class="owl-carousel owl-arrow gallery-property">
+              <img src="{{ asset( '' ~ routes[0] ~ '') }}" class="img-fluid zoom-img" id="image" alt="Responsive image">
+          </div>
+        </figure>
+          <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-4">
+              <div class="property-summary">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="title-box-d section-t4">
+                      <h3 class="title-d">Presentation</h3>
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+                <div class="summary-list">
+                  <ul class="list">
+                    <li class="d-flex justify-content-between">
+                      <strong>Adresse:</strong>
+                      <span>{{ appartement.rue }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Etage:</strong>
+                      <span>{{ appartement.etage }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Arrondissement:</strong>
+                      <span>{{ appartement.arrondissement }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Type d'appartement:</strong>
+                      <span>{{ appartement.typeAppart }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Prix de la location:</strong>
+                      <span>{{ appartement.prixLocation }} €/mois </span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Prix des charge:</strong>
+                      <span>{{ appartement.prixCharge }} €/mois</span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Ascenseur:</strong>
+                      {% if appartement.ascenseur == true %}
+                     <span>oui</span>
+                     {% else %}
+                     <span>non</span>
+                      {% endif %}
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Preavis:</strong>
+                      {% if appartement.preavis == true %}
+                     <span>oui</span>
+                     {% else %}
+                     <span>non</span>
+                      {% endif %}
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Montant des cotisations:</strong>
+                      <span>{{ appartement.montantCotisation }} €</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 col-lg-7 section-md-t3">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Information du proprietaire</h3>
+                    <hr>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="property-agent">
+                <h4 class="title-agent">{{ appartement.proprietaire.prenom  }} {{  appartement.proprietaire.nom }}</h4>
+                
+                <ul class="list-unstyled"style="margin-right: 30%;">
+                  <li class="d-flex justify-content-between">
+                    <strong>Adresse:</strong>
+                    <span class="color-text-a">{{ appartement.proprietaire.adresse }}</span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Ville:</strong>
+                    <span class="color-text-a">{{ appartement.proprietaire.ville }}</span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Code postal:</strong>
+                    <span class="color-text-a">{{ appartement.proprietaire.cp }}</span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Telephone:</strong>
+                    <span class="color-text-a">{{ appartement.proprietaire.telephone }}</span>
+                  </li>  
+                  <li class="d-flex justify-content-between">
+                    <strong>Email:</strong>
+                    <span class="color-text-a">{{ appartement.proprietaire.email }}</span>
+                </ul>
+            </div>
+
+          </div>
+         
+           {% if app.user.roles[0] == "ROLE_CLIENT" %}
+
+            <a href="{{ path('visiteApp', {'id': appartement.id}) }}" class="btn btn-primary btn-lg btn-block">Visiter cette appartement</a>
+         
+          {% endif %}
+        </div><br><br><br><br>
+     </div>
+
+{% endblock %}

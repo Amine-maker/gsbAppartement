@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formA 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<h1 class="text-center">Ajouter un appartement</h1>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+    {{ form_start(formA) }}
+
+    {{ form_row(formA.proprietaire)}}
+    {{ form_row(formA.rue)}}
+    {{ form_row(formA.arrondissement)}}
+    {{ form_row(formA.etage)}}
+    {{ form_row(formA.typeAppart)}}
+    {{ form_row(formA.prixLocation)}}
+    {{ form_row(formA.prixCharge)}}
+
+
+
+    <fieldset>
+    <div class="form-group">
+        <div class="custom-control custom-checkbox">
+            {{ form_widget(formA.ascenseur) }}
+            
+            {{ form_widget(formA.preavis)}}
+        
+        </div>
+    </div>
+    </fieldset>
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block mb-5">valider</button>
+
+    {{ form_end(formA) }}
+
+    </div>
+</div>
+
+{% endblock %}

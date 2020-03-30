@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+<h1 class="mt-5">Cotisations due par proprietaire</h1>
+
+<table class="table table-hover mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Ville</th>
+      <th scope="col">Cotisation total</th>
+      
+    </tr>
+  </thead>
+  
+    
+    {% for cotisation in cotisations %}
+
+    {% set i = ( i | default(0) ) + 1 %}
+
+    <tr class="mb-5">
+      <td>{{ cotisation.nom }} </td>
+      <td>{{ cotisation.prenom }}</td>
+      <td>{{ cotisation.adresse }}</td>
+      <td>{{ cotisation.cp }} {{ cotisation.ville }}</td>
+      <td>
+            
+<input type="checkbox" class="read-more-state" id="post-{{ i }}"/>
+
+        <ul class="read-more-wrap" style="list-style-type:none;">
+          <div class="row read-more-target mb-3">
+            <div class="col read-more-target">N° appart</div>
+            <div class="col read-more-target">Loyer</div>
+            <div class="col read-more-target">Cotisation</div>
+          </div>
+
+
+        {% for coti in cotisationByAppart %}
+
+          {% if coti.nom == cotisation.nom %}
+
+          <div class="row read-more-target">
+            <div class="col read-more-target">{{ coti.idAppart }}</div>
+            <div class="col read-more-target">{{ coti.prix_location }} €</div>
+            <div class="col read-more-target">{{ coti.cotisationByAppart }} €</div>
+          </div>
+          {% endif %}
+
+        {% endfor %}
+        <label class="read-more-target mt-3">Total cotisation : </label> {{ cotisation.cotisation }} €
+        <label for="post-{{ i }}" class="read-more-trigger ml-3 btn-primary">Details</label></ul>
+       
+      </td>
+    </tr>
+
+    {% endfor %}
+    
+  
+</table> 
+
+
+<div>
+  <ul class="navigation text-center">
+      {{ knp_pagination_render(cotisations) }}
+  </ul>
+</div>
+
+{% endblock %}

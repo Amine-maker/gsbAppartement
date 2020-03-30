@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+<script>
+
+
+$.confirm({
+    title: 'Information',
+    content: 'Votre visite a été enregisté',
+    type: 'blue',
+    typeAnimated: true,
+    buttons: {
+        tryAgain: {
+            text: 'valider',
+            btnClass: 'btn-primary',
+            action: function(){
+                 $(location).attr('href','{{ path("demandeApp") }}');
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

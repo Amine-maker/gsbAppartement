@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+
+
+<h1 class="text-center">inscription</h1>
+{% block javascripts %}
+    <script>
+    function test(){
+        
+       if(document.getElementById('registration_roles_1').checked) {
+            document.getElementById('registration_telBanque').style.display='block';
+            document.getElementById('registration_rib').style.display='block';
+            document.getElementById('registration_appartement').style.display='block';
+       }
+       else {
+           document.getElementById('registration_telBanque').style.display='none';
+            document.getElementById('registration_rib').style.display='none';
+            document.getElementById('registration_appartement').style.display='none';
+       }
+    }  
+    </script>
+{% endblock %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+{{ form_start(form) }}
+
+
+
+{{ form_row(form.roles, { 'attr': {'onclick' : 'test()', 'style': 'display:flex', 'class':'col' }}) }}
+
+
+
+{{ form_widget(form.rib,{ 'attr': { 'placeholder':'rib', 'class':'item-display-none' }})  }} <br>
+{{ form_widget(form.telBanque,{ 'attr': { 'placeholder':'telBanque', 'class':'item-display-none' }}) }}  <br>
+{{ form_widget(form.appartement,{ 'attr': { 'placeholder':'appart', 'class':'item-display-none' }}) }}
+
+
+{{ form_row(form.nom) }}
+{{ form_row(form.prenom) }}
+{{ form_row(form.adresse) }}
+{{ form_row(form.ville) }}
+{{ form_row(form.cp) }}
+{{ form_row(form.telephone) }}
+{{ form_row(form.email) }}
+{{ form_row(form.mdp) }}
+
+
+
+
+
+<button type="submit" class="btn btn-primary btn-lg btn-block">Inscription</button>
+{{ form_end(form) }}
+    </div>
+</div>
+<br>
+ {% endblock %} 
