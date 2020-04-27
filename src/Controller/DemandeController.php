@@ -16,6 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 
 class DemandeController extends AbstractController
@@ -95,7 +97,7 @@ class DemandeController extends AbstractController
      * @Route("/demandeApp", name="demandeApp")
      * @Route("/demande/edit/{id}", name = "editDemande")
      */
-    public function demande(Demande $demande = null, Request $request, ObjectManager $manager, EntityManagerInterface $em){
+    public function demande(Demande $demande = null, Request $request, ObjectManager $manager, EntityManagerInterface $em, PaginatorInterface $paginator){
 
         if(!$demande){
              $demande = new Demande();
@@ -151,6 +153,8 @@ class DemandeController extends AbstractController
                                ->getAppartementsVide($demande->getTypeAppart(),$demande->getPrixLocation(),$tab_arr);
 
 
+                
+
                 $route = array();
                 $i=1;
                 $q = $this->getDoctrine()->getRepository(Image::class);
@@ -170,8 +174,15 @@ class DemandeController extends AbstractController
                 }
                
                 if(count($apps)>0){
+
+                    $appointments = $paginator->paginate(
+                        $apps,
+                        $request->query->getInt('page', 1),
+                        6
+                        );
+
                     return $this->render('appartement/show.html.twig',
-                     ['appartements' => $apps, 'routes'=> $routes]);
+                     ['appartements' => $appointments, 'routes'=> $routes]);
                 }
                 else {
                     return $this->render('demande/vide.html.twig');

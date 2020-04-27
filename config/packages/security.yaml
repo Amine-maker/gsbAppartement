@@ -42,7 +42,12 @@ security:
           - { path: ^/demandeApp, roles: [ROLE_CLIENT, ROLE_ADMIN] }
           - { path: ^/visite, roles: [ROLE_CLIENT,ROLE_ADMIN] }
           - { path: ^/demande, roles: [ROLE_ADMIN] }
-          - { path: ^/connexion, roles: [ROLE_ADMIN] }
+          - { path:  /proprietaire/cotisations, roles: [ROLE_ADMIN] }
+          - { path: ^/user/show, roles: [ROLE_ADMIN] }
+          - { path: ^/user/supprimer, roles: [ROLE_ADMIN] }
+          - { path: ^/visite, roles: [ROLE_ADMIN] }
+
+
           
 
     role_hierarchy:

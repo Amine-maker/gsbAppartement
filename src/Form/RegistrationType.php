@@ -28,30 +28,29 @@ class RegistrationType extends AbstractType
             ->add('prenom')
             ->add('adresse')
             ->add('ville')
-            ->add('cp')
+            ->add('cp', NumberType::class)
             ->add('telephone', TelType::class)
             ->add('email', EmailType::class)
-            ->add('rib',TextType::class,['mapped' => false , 'required' => false])
-            ->add('telBanque',NumberType::class,['mapped' => false, 'required' => false])
+            // ->add('rib',TextType::class,['mapped' => false , 'required' => false])
+            // ->add('telBanque',NumberType::class,['mapped' => false, 'required' => false])
             ->add('mdp', PasswordType::class)
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     "Client" => "ROLE_CLIENT",
-                    "Locataire" => "ROLE_LOCATAIRE",
                     "Proprietaire" => "ROLE_PROPRIETAIRE",
                 ],
                 'label' => 'Qui êtes vous', 
                 'mapped'=> false,
-                'expanded'=>true , 
+                'expanded'=>true, 
                 'label_attr' => ['class' => 'col']
 
-                ])
-            ->add('appartement',EntityType::class,[
-                'class' => Appartement::class,
-                'choice_label' => 'rue',
-                'label' => 'Appartement du locataire',
-                'mapped'=>false
-                ]);       
+                ]);
+            // ->add('appartement',EntityType::class,[
+            //     'class' => Appartement::class,
+            //     'choice_label' => 'rue',
+            //     'label' => 'Appartement du locataire',
+            //     'mapped'=>false
+            //     ]);       
     }
 
     public function configureOptions(OptionsResolver $resolver)

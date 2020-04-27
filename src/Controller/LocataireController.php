@@ -3,22 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Appartement;
+use App\Entity\Client;
 use App\Entity\Image;
-use App\Entity\Proprietaire;
+use App\Entity\Locataire;
+use App\Entity\Utilisateur;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LocataireController extends AbstractController
 {
-    /**
-     * @Route("/proprietaire", name="proprietaire")
-     */
-    public function index()
-    {
-        return $this->render('proprietaire/index.html.twig', [
-            'controller_name' => 'ProprietaireController',
-        ]);
-    }
+
 
     /**
      * @Route ("/locataire/showAppart", name = "myAppart")
@@ -40,9 +37,63 @@ class LocataireController extends AbstractController
                     $i++;
                 }
                 
-            
         return $this->redirectToRoute('show_one',[
             'id' => $locataire->getAppartement()->getId()
         ]);
+    }
+
+
+    /**
+     * @Route("/locataire/endRegist", name = "endRegistr")
+     */
+    public function endRegistr(Request $request){
+        $rep = $this->getDoctrine()->getRepository(Utilisateur::class);
+        $user = $this->getUser();
+        $locataire = new Locataire();
+        
+        $form = $this->createFormBuilder($locataire);
+        $form->add('telBanque', TelType::class)
+             ->add('rib');
+             
+             $form = $form->getForm();
+
+             $form->handleRequest($request);
+
+             if($form->isSubmitted() && $form->isValid()){
+
+                $rep->updateUserClass($locataire, $user->getId());
+                return $this->redirectToRoute('accueil');               
+             }
+
+             return $this->render('locataire/locRegistr.html.twig',
+             [
+                 'form' => $form->createView()
+             ]);
+    }
+
+
+
+    /**
+     * @Route ("/locataire/restore/{id}", name = "restoreAppart")
+     */
+    public function restoreAppart(ObjectManager $manager){
+
+        $loc = $this->getUser();
+        $loc->setNom($loc->getNom())
+            ->setRoles(array('0'=>'ROLE_CLIENT'))
+            ->setTelBanque(null)
+            ->setRib(null)
+            ->setAppartement(null);
+
+            $this->getDoctrine()->getRepository(Locataire::class)->updateClass($loc);
+
+            $manager->persist($loc);
+            $manager->flush();
+        dump($loc);
+
+
+
+        //return $this->render("locataire/index.html.twig", ['controller_name' => 'LocataireController']);
+        return $this->redirectToRoute("deconnexion");
     }
 }

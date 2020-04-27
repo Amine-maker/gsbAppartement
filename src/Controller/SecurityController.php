@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 class SecurityController extends AbstractController
 {
@@ -27,14 +28,14 @@ class SecurityController extends AbstractController
      * @Route ("/user/edit/{id}", name = "editUser")
      */
 public function regist(Request $request,
-                    ObjectManager $manager,
-                    UserPasswordEncoderInterface $encoder,
-                    Client $client = null,
-                    Utilisateur $user = null,
-                    Locataire $locataire = null,
-                    Proprietaire $proprietaire = null
-                )
-                {
+                      ObjectManager $manager,
+                      UserPasswordEncoderInterface $encoder,
+                      Client $client = null,
+                      Utilisateur $user = null,
+                      Locataire $locataire = null,
+                      Proprietaire $proprietaire = null
+                    )
+            {
         
         if(!$client){$client = new Client();}
         if(!$user) {$user = new Utilisateur();}
@@ -92,16 +93,23 @@ public function regist(Request $request,
             dump($user);
             return $this->redirectToRoute('connexion');
         }
+
+            if($this->getUser() !== null){
+                $editMode = true;
+            }
+            else{$editMode = false;}
+
+
         return $this->render('security/registr.html.twig',
         [
-            'form' => $form->createView()
+            'form' => $form->createView(), 'editMode'=> $editMode
         ]);
     }
 
 
 
     /**
-     * @Route ("/utilisateur/show", name = "showUsers")
+     * @Route ("/user/show", name = "showUsers")
      */
     public function showUsers(PaginatorInterface $paginator, Request $request){
 
@@ -153,42 +161,14 @@ public function regist(Request $request,
     public function logout(){}
 
 
-    /**
-     * @Route("/locataire/endRegist", name = "endRegistr")
-     */
-    public function endRegistr(Request $request){
-        $rep = $this->getDoctrine()->getRepository(Utilisateur::class);
-        $user = $this->getUser();
-        $locataire = new Locataire();
-        
-        $form = $this->createFormBuilder($locataire);
-        $form->add('telBanque')
-             ->add('rib');
-             
-             $form = $form->getForm();
-
-             $form->handleRequest($request);
-
-             if($form->isSubmitted() && $form->isValid()){
-
-                $rep->updateUserClass($locataire, $user->getId());
-                return $this->redirectToRoute('accueil');               
-             }
-
-             return $this->render('security/locRegistr.html.twig',
-             [
-                 'form' => $form->createView()
-             ]);
-    }
-
 
 
     /**
-     * @Route("/utilisateur/supprimer/{id}", name="delUser")
+     * @Route("/user/supprimer/{id}", name="delUser")
      */
     public function delete(Utilisateur $utilisateur, ObjectManager $manager){
  
-        dump($utilisateur);
+        //dump($utilisateur);
 
         $manager->remove($utilisateur);
         $manager->flush();

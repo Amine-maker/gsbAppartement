@@ -36,9 +36,17 @@ class LocataireRepository extends ServiceEntityRepository
     }
     */
 
-//     public function getAppart()
-//         $req  ='
-//         select * from appartement 
-//         join utilisateur on utilisateur.appartement_id = appartement.id
-//         where utilisateur.id = 52';
+    public function updateClass(Locataire $locataire) {
+
+        $id = $locataire->getId();
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "update utilisateur set 
+                discr = 'client'
+                where id = $id";
+
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+
+    }
+        
  }

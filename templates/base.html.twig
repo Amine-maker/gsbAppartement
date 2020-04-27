@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css"> 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -77,13 +77,20 @@
               <a class="nav-link" href="{{ path('myAppart') }}">Mon appartement</a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('restoreAppart', {"id" : app.user.appartement.id}) }}">Rendre l'appartement</a>
+            </li>
+
             {% endif %}
             
            </ul>
       
           <ul class="navbar-nav ml-auto">
+            {# <li class="nav-item mr-3">
+                <a class="nav-link" href="{{ path('editUser', {'id': app.user.id}) }}"><i class="fas fa-user-circle fa-lg"></i></i> edit</a>
+            </li> #}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('deconnexion') }}"><i class="fas fa-sign-out-alt"></i>Deconnexion</a>
+                <a class="nav-link" href="{{ path('deconnexion') }}"><i class="fas fa-sign-out-alt fa-lg"></i> Deconnexion</a>
             </li>
           </ul>
           

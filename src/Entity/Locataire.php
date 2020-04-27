@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LocataireRepository")
@@ -23,6 +24,7 @@ class Locataire extends Utilisateur
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(min = 10, max = 10)
      */
     private $telBanque;
 
@@ -43,7 +45,7 @@ class Locataire extends Utilisateur
         return $this->rib;
     }
 
-    public function setRib(string $rib): self
+    public function setRib(?string $rib): self
     {
         $this->rib = $rib;
 
@@ -55,7 +57,7 @@ class Locataire extends Utilisateur
         return $this->telBanque;
     }
 
-    public function setTelBanque(int $telBanque): self
+    public function setTelBanque(?int $telBanque): self
     {
         $this->telBanque = $telBanque;
 

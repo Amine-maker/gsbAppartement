@@ -4,9 +4,17 @@
 {% block body %}
 
 
+    {% if editMode == false %}
 
-<h1 class="text-center">inscription</h1>
-{% block javascripts %}
+        <h1 class="text-center">Inscription</h1>
+    
+    {% else %}
+
+        <h1 class="text-center">Modification du profil</h1>
+
+    {% endif %}
+
+{# {% block javascripts %}
     <script>
     function test(){
         
@@ -22,21 +30,17 @@
        }
     }  
     </script>
-{% endblock %}
+{% endblock %} #}
 
 <div class="row d-flex justify-content-center">
     <div class="col-md-6">
 {{ form_start(form) }}
 
+{{ form_row(form.roles, { 'attr': { 'style': 'display:flex', 'class':'col' }}) }}
 
-
-{{ form_row(form.roles, { 'attr': {'onclick' : 'test()', 'style': 'display:flex', 'class':'col' }}) }}
-
-
-
-{{ form_widget(form.rib,{ 'attr': { 'placeholder':'rib', 'class':'item-display-none' }})  }} <br>
+{# {{ form_widget(form.rib,{ 'attr': { 'placeholder':'rib', 'class':'item-display-none' }})  }} <br>
 {{ form_widget(form.telBanque,{ 'attr': { 'placeholder':'telBanque', 'class':'item-display-none' }}) }}  <br>
-{{ form_widget(form.appartement,{ 'attr': { 'placeholder':'appart', 'class':'item-display-none' }}) }}
+{{ form_widget(form.appartement,{ 'attr': { 'placeholder':'appart', 'class':'item-display-none' }}) }} #}
 
 
 {{ form_row(form.nom) }}
@@ -52,7 +56,20 @@
 
 
 
-<button type="submit" class="btn btn-primary btn-lg btn-block">Inscription</button>
+<button type="submit" class="btn btn-primary btn-lg btn-block">
+{% if editMode == false %}
+
+     Inscription 
+    
+    {% else %}
+
+    Modifier
+
+    {% endif %}
+
+
+
+</button>
 {{ form_end(form) }}
     </div>
 </div>

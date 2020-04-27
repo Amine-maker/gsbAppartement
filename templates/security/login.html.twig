@@ -9,7 +9,8 @@
         <div class="card p-3 mb-5 rounded mt-5">
             <article class="card-body">
             <a href="{{ path('inscription') }}" class="float-right btn btn-outline-primary">S'inscrire</a>
-            <h4 class="card-title mb-4 mt-1">Se connecter</h4>
+             <h6 class="mr-1 mt-2 float-right">Pas encore inscrit ?</h6><h4 class="card-title mb-4 mt-1">Connexion</h4>
+           
                 <form action="{{ path('connexion') }}" method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

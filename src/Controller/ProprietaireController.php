@@ -12,15 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProprietaireController extends AbstractController
 {
-    /**
-     * @Route("/proprietaire", name="proprietaire")
-     */
-    public function index()
-    {
-        return $this->render('proprietaire/index.html.twig', [
-            'controller_name' => 'ProprietaireController',
-        ]);
-    }
 
     /**
      * @Route ("/proprietaire/showAppart", name = "myApparts")
@@ -51,7 +42,7 @@ class ProprietaireController extends AbstractController
     /**
      * @Route("/proprietaire/cotisations",name = "cotisationByProprietaire")
      */
-    public function getCotisatisation(Request $request, PaginatorInterface $paginator)
+    public function getCotisation(Request $request, PaginatorInterface $paginator)
     {
         $cotisations = $this->getDoctrine()->getRepository(Proprietaire::class)->findCotisations();
         $cotisationByAppart = $this->getDoctrine()->getRepository(Proprietaire::class)->findCotisationByAppart();           

@@ -91,7 +91,6 @@ body{
     object-fit:cover;
     height: 200px;
     width: 100%;
-    
   }
  
   #container {
@@ -479,14 +478,7 @@ transition-duration: 0.4s;
     font-size: inherit;
     max-height: 999em;
   }
-  
-  /* .read-more-state ~ .read-more-trigger:before {
-    content: 'Details';
-  }
-  
-  .read-more-state:checked ~ .read-more-trigger:before {
-    content: 'Cacher';
-  } */
+
   
   .read-more-trigger {
     cursor: pointer;
