@@ -71,7 +71,7 @@ class AppartementController extends AbstractController
                 }
                 
             }
-            dump($routes);
+           
         return $this->render('appartement/show.html.twig', [
             'appartements' => $appointments, 'routes' => $routes
         ]);
@@ -92,7 +92,7 @@ class AppartementController extends AbstractController
         }
        
         $manager->remove($appartement);
-        dump($appartement);
+        
         $manager->flush();
 
         return $this->redirectToRoute('showAppart');
@@ -119,7 +119,7 @@ class AppartementController extends AbstractController
                              ->getId()));
 
         $appartement->setProprietaire($proprietaire[0]);
-        dump($appartement);
+        
 
         return $this->render('appartement/show_one.html.twig', 
         [
@@ -185,7 +185,7 @@ class AppartementController extends AbstractController
              }
 
 
-             dump($appartement);
+             
 
         return $this->render('appartement/add.html.twig',[
             "formA" => $form->createView()

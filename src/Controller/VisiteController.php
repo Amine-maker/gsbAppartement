@@ -52,7 +52,7 @@ class VisiteController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Appartement::class);
         $appartement = $repo->find($id);
-        dump($appartement);
+       
         $idC = $this->getUser()->getId();
         $visite = $conn->fetchAll("select client_id , appartement_id 
                             from client_appartement c
@@ -68,7 +68,7 @@ class VisiteController extends AbstractController
                                                    'date_visite'=> date('y-m-d')));
             }
         
-        dump($idC);
+        
         return $this->render('visite/enregistrement.html.twig', ['client' => $this->getUser()]);
     }
      

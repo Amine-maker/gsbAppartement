@@ -47,8 +47,7 @@ class ProprietaireController extends AbstractController
         $cotisations = $this->getDoctrine()->getRepository(Proprietaire::class)->findCotisations();
         $cotisationByAppart = $this->getDoctrine()->getRepository(Proprietaire::class)->findCotisationByAppart();           
                            
-                          //dump($cotisationByAppart);
-                          //dump($cotisations);  
+                         
 
                 $appointments = $paginator->paginate(
                 $cotisations,

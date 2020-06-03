@@ -45,7 +45,7 @@ class DemandeController extends AbstractController
              
             }
             
-           // dump($bdemandes);
+           
            
         return $this->render('demande/showDemande.html.twig', [
             'controller_name' => 'DemandeController', 'demandes' => $bdemandes
@@ -60,7 +60,7 @@ class DemandeController extends AbstractController
 
             $demande = $repo->find($id);
             $demande->setClient(null);
-            dump($demande);
+            
 
             $manager->remove($demande);
             $manager->flush();
@@ -83,7 +83,7 @@ class DemandeController extends AbstractController
             
             $repoo->updateRole($utilisateur, $app);
             $demandes = $repoo->findBy(array('client'=> $id));
-            dump($demandes);
+            
             foreach ($demandes as $demande)
                 {
                     $em->remove($demande);

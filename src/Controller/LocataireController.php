@@ -25,7 +25,7 @@ class LocataireController extends AbstractController
         $locataire = $this->getUser();
         $appartLoc =$this->getDoctrine()->getRepository(Appartement::class)
                          ->findBy(array('id' => $locataire->getAppartement()->getId()));
-        dump($appartLoc);
+        
         $q = $this->getDoctrine()->getRepository(Image::class);
         $i=0;
         $route = array();
@@ -89,7 +89,7 @@ class LocataireController extends AbstractController
 
             $manager->persist($loc);
             $manager->flush();
-        dump($loc);
+        
 
 
 

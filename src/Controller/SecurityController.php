@@ -90,7 +90,7 @@ public function regist(Request $request,
             }
 
             $manager->flush();
-            dump($user);
+           
             return $this->redirectToRoute('connexion');
         }
 
@@ -120,8 +120,8 @@ public function regist(Request $request,
             {
                 $id = $user->getAppartement()->getId();
                 $appart = $this->getDoctrine()->getRepository(Appartement::class)->findBy(array('id' => $id));
-                dump($appart);
-                dump($user->getAppartement()->getId());
+               
+               
                 $user->setAppartement($appart[0]);
 
             }
@@ -168,7 +168,7 @@ public function regist(Request $request,
      */
     public function delete(Utilisateur $utilisateur, ObjectManager $manager){
  
-        //dump($utilisateur);
+        
 
         $manager->remove($utilisateur);
         $manager->flush();

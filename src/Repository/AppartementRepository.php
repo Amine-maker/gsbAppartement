@@ -46,7 +46,7 @@ class AppartementRepository extends ServiceEntityRepository
            $tab_arr[] = $arrondissement->getArrondissementDemande();
            $tab_arr = array(6,8);
         }
-        dump($tab_arr);
+       
          return $this->createQueryBuilder('a')
                      ->Where('a.typeAppart = :type_appart')
                      ->andWhere('a.prixLocation = :prix_location')
